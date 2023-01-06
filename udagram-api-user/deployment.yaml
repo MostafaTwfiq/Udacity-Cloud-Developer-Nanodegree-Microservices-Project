@@ -15,16 +15,9 @@ spec:
         service: backend-user
     spec:
       containers:
-      - image: fego/udagram-api-user
+      - image: mostafa1/udagram-api-user
         name: backend-user
-        imagePullPolicy: Always  
-        resources:
-          requests:
-            memory: "4024Mi"
-            cpu: "250m"
-          limits:
-            memory: "5024Mi"
-            cpu: "500m"                  
+        imagePullPolicy: Always                    
         env:
         - name: URL
           valueFrom:
