@@ -55,32 +55,25 @@ router.get('/verification',
 router.post('/login', async (req: Request, res: Response) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(`Logging for user ${email}`);
 
   if (!email || !EmailValidator.validate(email)) {
     return res.status(400).send({auth: false, message: 'Email is required or malformed.'});
   }
-  console.log(`Email is valid`)
+
   if (!password) {
     return res.status(400).send({auth: false, message: 'Password is required.'});
   }
-
-  console.log(`Password is valid`)
 
   const user = await User.findByPk(email);
   if (!user) {
     return res.status(401).send({auth: false, message: 'User was not found..'});
   }
 
-  console.log(`Found user for ${email}`);
-
   const authValid = await comparePasswords(password, user.passwordHash);
 
   if (!authValid) {
     return res.status(401).send({auth: false, message: 'Password was invalid.'});
   }
-
-  console.log(`Not autherized`)
 
   const jwt = generateJWT(user);
   res.status(200).send({auth: true, token: jwt, user: user.short()});
@@ -90,8 +83,6 @@ router.post('/login', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   const email = req.body.email;
   const plainTextPassword = req.body.password;
-
-  console.log(`Sign up for user ${email}`);
 
   if (!email || !EmailValidator.validate(email)) {
     return res.status(400).send({auth: false, message: 'Email is missing or malformed.'});

@@ -1,6 +1,9 @@
 name: Docker Build And Push
 run-name: Building and pushing docker images
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -10,16 +13,16 @@ jobs:
       - run: echo "Building Images..."
       - run: docker build -t udagram-api-feed ./udagram-api-feed
       - run: docker build -t udagram-api-user ./udagram-api-user
-      #- run: docker build -t udagram-frontend ./udagram-frontend
+      - run: docker build -t udagram-frontend ./udagram-frontend
       - run: docker build -t reverseproxy ./udagram-reverseproxy
       - run: echo "Taging Images..."
       - run: docker tag udagram-api-feed mostafa1/udagram-api-feed
       - run: docker tag udagram-api-user mostafa1/udagram-api-user
-      #- run: docker tag udagram-frontend mostafa1/udagram-frontend
+      - run: docker tag udagram-frontend mostafa1/udagram-frontend
       - run: docker tag reverseproxy mostafa1/reverseproxy
       - run: echo "Pushing Images..."
       - run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u "${{secrets.DOCKER_USERNAME}}" --password-stdin
       - run: docker push mostafa1/udagram-api-feed
       - run: docker push mostafa1/udagram-api-user
-      #- run: docker push mostafa1/udagram-frontend
+      - run: docker push mostafa1/udagram-frontend
       - run: docker push mostafa1/reverseproxy
