@@ -7,7 +7,6 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v2.3.4
-      - run: echo "$PWD"
       - run: echo "Building Images..."
       - run: docker build -t udagram-api-feed ./udagram-api-feed
       - run: docker build -t udagram-api-user ./udagram-api-user
