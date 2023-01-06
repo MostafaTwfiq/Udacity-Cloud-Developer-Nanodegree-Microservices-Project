@@ -6,6 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Building Images..."
+      - run: echo "$PWD"
+      - run: cd ./udagram-api-feed
+      - run: echo "$PWD"
+      - run: cd ../
       - run: docker build -t udagram-api-feed ./udagram-api-feed
       - run: docker build -t udagram-api-user ./udagram-api-user
       - run: docker build -t udagram-frontend ./udagram-frontend
